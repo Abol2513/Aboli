@@ -1,0 +1,38 @@
+name: Build Vite Project
+
+# 1. اجرا شدن با هر تغییر در برنچ اصلی
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # دریافت کد شما
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # نصب Node.js (نسخه 20 برای Vite عالی است)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # نصب تمام پکیج‌هایی که در package.json دارید
+      - name: Install Dependencies
+        run: npm install
+
+      # اجرای دستور بیلد (tsc -b && vite build)
+      - name: Build Project
+        run: npm run build
+
+      # ذخیره پوشه dist (خروجی استاندارد Vite)
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-output
+          path: dist/
