@@ -1,0 +1,6 @@
+{
+  "appId": "com.qeshaeae.scanner",
+  "appName": "Qeshaeae Scanner",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}
